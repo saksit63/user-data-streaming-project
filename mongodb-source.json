@@ -1,0 +1,19 @@
+{
+  "name":"mongodb-source-kafka",
+  "config":{
+    "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+    "tasks.max": "1",
+    "topic.prefix": "mongodb",
+    "mongodb.connection.string": "mongodb://root:1234@mongodb-primary:27017,mongodb-secondary:27017,mongodb-arbiter:27017/?replicaSet=replicaset",
+    "mongodb.name" : "source-db",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "include.schema.changes": "true",
+    "database.include.list": "source",
+    "collection.include.list": "source.users",
+    "transforms": "unwrap",
+    "transforms.unwrap.type":"io.debezium.connector.mongodb.transforms.ExtractNewDocumentState",
+    "transforms.unwrap.add.headers": "op",
+    "transforms.unwrap.add.fields": "op"
+  }
+}
